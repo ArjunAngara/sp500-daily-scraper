@@ -4,3 +4,6 @@ tickers = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
 
 print("My stock tracker")
 print(tickers)
+print("Tracking these stocks:")
+for ticker in tickers:
+    print(ticker)
