@@ -1,9 +1,8 @@
 # S&P 500 Daily Scraper
 
-tickers = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
+tickers = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA",
+           "NVDA", "META", "JPM", "V", "BRK-B"]
 
-print("My stock tracker")
-print(tickers)
-print("Tracking these stocks:")
-for ticker in tickers:
-    print(ticker)
+print(f"Tracking {len(tickers)} stocks:")
+for i, ticker in enumerate(tickers, 1):
+    print(f"  {i}. {ticker}")
