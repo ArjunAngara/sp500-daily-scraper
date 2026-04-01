@@ -1,8 +1,9 @@
 # S&P 500 Daily Scraper
 
-tickers = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA",
-           "NVDA", "META", "JPM", "V", "BRK-B"]
+import requests
 
-print(f"Tracking {len(tickers)} stocks:")
-for i, ticker in enumerate(tickers, 1):
-    print(f"  {i}. {ticker}")
+url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+response = requests.get(url)
+
+print(f"Status code: {response.status_code}")
+print("Page fetched successfully")
