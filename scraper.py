@@ -8,4 +8,13 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text, "html.parser")
 
 table = soup.find("table", {"id": "constituents"})
-print("Found table:", table is not None)
+tickers = []
+
+for row in table.find_all("tr")[1:]:
+    cells = row.find_all("td")
+    if cells:
+        ticker = cells[0].get_text(strip=True)
+        tickers.append(ticker)
+
+print(f"Found {len(tickers)} tickers")
+print(tickers[:10])
