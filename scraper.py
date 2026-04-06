@@ -16,5 +16,6 @@ for row in table.find_all("tr")[1:]:
         ticker = cells[0].get_text(strip=True)
         tickers.append(ticker)
 
-print(f"Found {len(tickers)} tickers")
-print(tickers[:10])
+print(f"Total tickers: {len(tickers)}")
+print("First 5:", tickers[:5])
+print("Last 5:", tickers[-5:])
