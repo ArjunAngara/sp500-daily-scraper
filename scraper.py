@@ -17,8 +17,19 @@ for row in table.find_all("tr")[1:]:
         ticker = cells[0].get_text(strip=True)
         tickers.append(ticker)
 
-# download all at once instead of one by one
 data = yf.download(tickers[:20], period="2d", interval="1d",
                    auto_adjust=True, progress=False)
 
-print(data["Close"].tail())
+close = data["Close"]
+
+for ticker in tickers[:10]:
+    try:
+        prices = close[ticker].dropna()
+        if len(prices) < 2:
+            continue
+        prev = float(prices.iloc[-2])
+        current = float(prices.iloc[-1])
+        change = round(((current - prev) / current) * 100, 2)
+        print(f"{ticker}: {change}%")
+    except Exception:
+        continue
