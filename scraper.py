@@ -1,4 +1,4 @@
-# S&P 500 Daily Scraper
+# S&P 500 Daily Scraperr
 
 import requests
 import yfinance as yf
