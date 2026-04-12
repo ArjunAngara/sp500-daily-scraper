@@ -1,4 +1,4 @@
-# S&P 500 Daily Scraperr
+# S&P 500 Daily Scraper
 
 import requests
 import yfinance as yf
@@ -17,19 +17,23 @@ for row in table.find_all("tr")[1:]:
         ticker = cells[0].get_text(strip=True)
         tickers.append(ticker)
 
-data = yf.download(tickers[:20], period="2d", interval="1d",
+data = yf.download(tickers, period="2d", interval="1d",
                    auto_adjust=True, progress=False)
 
 close = data["Close"]
+results = []
 
-for ticker in tickers[:10]:
+for ticker in tickers:
     try:
         prices = close[ticker].dropna()
         if len(prices) < 2:
             continue
-        prev = float(prices.iloc[-2])
-        current = float(prices.iloc[-1])
+        prev = round(float(prices.iloc[-2]), 2)
+        current = round(float(prices.iloc[-1]), 2)
         change = round(((current - prev) / current) * 100, 2)
-        print(f"{ticker}: {change}%")
+        results.append({"Ticker": ticker, "Price": current, "Change": change})
     except Exception:
         continue
+
+print(f"Got results for {len(results)} stocks")
+print(results[:5])
