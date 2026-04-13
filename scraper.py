@@ -1,6 +1,7 @@
 # S&P 500 Daily Scraper
 
 import requests
+import pandas as pd
 import yfinance as yf
 from bs4 import BeautifulSoup
 
@@ -31,9 +32,10 @@ for ticker in tickers:
         prev = round(float(prices.iloc[-2]), 2)
         current = round(float(prices.iloc[-1]), 2)
         change = round(((current - prev) / current) * 100, 2)
-        results.append({"Ticker": ticker, "Price": current, "Change": change})
+        results.append({"Ticker": ticker, "Previous Close": prev,
+                        "Current Price": current, "Daily Change (%)": change})
     except Exception:
         continue
 
-print(f"Got results for {len(results)} stocks")
-print(results[:5])
+df = pd.DataFrame(results)
+print(df.head(10))
