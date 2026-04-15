@@ -1,5 +1,6 @@
 # S&P 500 Daily Scraper
 
+import os
 import requests
 import pandas as pd
 import yfinance as yf
@@ -41,4 +42,6 @@ for ticker in tickers:
         continue
 
 df = pd.DataFrame(results)
-print(df.head(10))
+os.makedirs("output", exist_ok=True)
+df.to_csv("output/sp500")
+print("Saved!")
