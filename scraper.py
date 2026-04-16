@@ -1,6 +1,7 @@
 # S&P 500 Daily Scraper
 
 import os
+import datetime
 import requests
 import pandas as pd
 import yfinance as yf
@@ -26,6 +27,9 @@ close = data["Close"]
 volume = data["Volume"]
 results = []
 
+now = datetime.datetime.now()
+print(f"Running scraper at {now}")
+
 for ticker in tickers:
     try:
         prices = close[ticker].dropna()
@@ -44,4 +48,4 @@ for ticker in tickers:
 df = pd.DataFrame(results)
 os.makedirs("output", exist_ok=True)
 df.to_csv("output/sp500")
-print("Saved!")
+print(f"Saved {len(df)} rows")
