@@ -26,9 +26,7 @@ data = yf.download(tickers, period="2d", interval="1d",
 close = data["Close"]
 volume = data["Volume"]
 results = []
-
-now = datetime.datetime.now()
-print(f"Running scraper at {now}")
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 for ticker in tickers:
     try:
@@ -41,11 +39,11 @@ for ticker in tickers:
         vol = int(volume[ticker].dropna().iloc[0])
         results.append({"Ticker": ticker, "Previous Close": prev,
                         "Current Price": current, "Daily Change (%)": change,
-                        "Volume": vol})
+                        "Volume": vol, "Timestamp": timestamp})
     except Exception:
         continue
 
 df = pd.DataFrame(results)
 os.makedirs("output", exist_ok=True)
 df.to_csv("output/sp500")
-print(f"Saved {len(df)} rows")
+print(f"Done — {len(df)} rows saved")
