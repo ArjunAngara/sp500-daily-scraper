@@ -49,8 +49,10 @@ def get_prices(tickers):
 
 def save_csv(df):
     os.makedirs("output", exist_ok=True)
-    df.to_csv("output/sp500")
-    print("Saved to output/sp500")
+    filename = datetime.datetime.now().strftime("sp500_%Y%m%d_%H%M%S.csv")
+    filepath = os.path.join("output", filename)
+    df.to_csv(filepath, index=False)
+    print(f"Saved to {filepath}")
 
 
 tickers = get_tickers()
