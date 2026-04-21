@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 
 
 def get_tickers():
+    print("Scraping tickers from Wikipedia...")
     url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
@@ -24,6 +25,7 @@ def get_tickers():
 
 
 def get_prices(tickers):
+    print("Fetching price data, this takes a minute...")
     data = yf.download(tickers, period="2d", interval="1d",
                        auto_adjust=True, progress=False)
     close = data["Close"]
@@ -44,6 +46,7 @@ def get_prices(tickers):
                             "Volume": vol, "Timestamp": timestamp})
         except Exception:
             continue
+    print(f"Got data for {len(results)} stocks")
     return pd.DataFrame(results)
 
 
