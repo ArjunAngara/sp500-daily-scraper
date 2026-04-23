@@ -54,10 +54,22 @@ def save_csv(df):
     os.makedirs("output", exist_ok=True)
     filename = datetime.datetime.now().strftime("sp500_%Y%m%d_%H%M%S.csv")
     filepath = os.path.join("output", filename)
+    df.sort_values("Daily Change (%)", ascending=False, inplace=True)
     df.to_csv(filepath, index=False)
     print(f"Saved to {filepath}")
+
+
+def show_summary(df):
+    print("\n--- Top 5 Gainers ---")
+    for _, row in df.nlargest(5, "Change (%)").iterrows():
+        print(f"  {row['Ticker']}: +{row['Daily Change (%)']}%")
+
+    print("\n--- Top 5 Losers ---")
+    for _, row in df.nsmallest(5, "Change (%)").iterrows():
+        print(f"  {row['Ticker']}: {row['Daily Change (%)']}%")
 
 
 tickers = get_tickers()
 df = get_prices(tickers)
 save_csv(df)
+show_summary(df)
