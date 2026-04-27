@@ -60,6 +60,9 @@ def save_csv(df):
 
 
 def show_summary(df):
+    avg = round(df["Daily Change (%)"].mean(), 2)
+    print(f"\nAverage market change: {avg}%")
+
     print("\n--- Top 5 Gainers ---")
     for _, row in df.nlargest(5, "Change (%)").iterrows():
         print(f"  {row['Ticker']}: +{row['Daily Change (%)']}%")
