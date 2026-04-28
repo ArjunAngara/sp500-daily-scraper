@@ -19,6 +19,7 @@ def get_tickers():
         cells = row.find_all("td")
         if cells:
             ticker = cells[0].get_text(strip=True)
+            ticker = ticker.replace(".", "-")
             tickers.append(ticker)
     print(f"Found {len(tickers)} tickers")
     return tickers
