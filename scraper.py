@@ -41,7 +41,7 @@ def get_prices(tickers):
             prev = round(float(prices.iloc[-2]), 2)
             current = round(float(prices.iloc[-1]), 2)
             change = round(((current - prev) / prev) * 100, 2)
-            vol = int(volume[ticker].dropna().iloc[0])
+            vol = int(volume[ticker].dropna().iloc[-1])
             results.append({"Ticker": ticker, "Previous Close": prev,
                             "Current Price": current, "Daily Change (%)": change,
                             "Volume": vol, "Timestamp": timestamp})
