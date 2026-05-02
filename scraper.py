@@ -65,11 +65,11 @@ def show_summary(df):
     print(f"\nAverage market change: {avg}%")
 
     print("\n--- Top 5 Gainers ---")
-    for _, row in df.nlargest(5, "Change (%)").iterrows():
+    for _, row in df.nlargest(5, "Daily Change (%)").iterrows():
         print(f"  {row['Ticker']}: +{row['Daily Change (%)']}%")
 
     print("\n--- Top 5 Losers ---")
-    for _, row in df.nsmallest(5, "Change (%)").iterrows():
+    for _, row in df.nsmallest(5, "Daily Change (%)").iterrows():
         print(f"  {row['Ticker']}: {row['Daily Change (%)']}%")
 
 
